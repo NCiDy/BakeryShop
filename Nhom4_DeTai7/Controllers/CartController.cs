@@ -64,8 +64,8 @@ namespace Nhom4_DeTai7.Controllers
 
             // Lấy số lượng còn lại của sản phẩm từ bảng SANPHAM
             var availableQuantity = db.SanPham
-                .Where(p => p.id_sp == productId) // Chú ý tên cột là ID_SP
-                .Select(p => p.soluong) // Chú ý tên cột là SOLUONG
+                .Where(p => p.id_sp == productId) 
+                .Select(p => p.soluong) 
                 .FirstOrDefault();
 
             // Tìm kiếm sản phẩm trong giỏ hàng của người dùng
@@ -87,7 +87,7 @@ namespace Nhom4_DeTai7.Controllers
                 existingItem.SOLUONG = totalQuantity;
                 db.Entry(existingItem).State = EntityState.Modified;
             }
-            // Nếu sản phẩm chưa có trong giỏ hàng, thêm mới
+            
             else
             {
                 var newItem = new GioHang
@@ -126,7 +126,7 @@ namespace Nhom4_DeTai7.Controllers
                 }
             }
 
-            // Sau khi cập nhật thành công, chuyển hướng về trang giỏ hàng
+      
             return RedirectToAction("Cart");
         }
 
@@ -142,7 +142,7 @@ namespace Nhom4_DeTai7.Controllers
                 }
             }
 
-            // Sau khi xóa thành công, chuyển hướng về trang giỏ hàng
+     
             return RedirectToAction("Cart");
         }
 
@@ -183,7 +183,7 @@ namespace Nhom4_DeTai7.Controllers
             int userId = Convert.ToInt32(Session["Cart"]);
 
             // Tạo ID cho hóa đơn mới
-            string billId = Guid.NewGuid().ToString("N").Substring(0, 10); // Hoặc tạo ID theo cách khác nếu cần
+            string billId = Guid.NewGuid().ToString("N").Substring(0, 10); 
             ViewBag.billId = billId;
             // Tạo hóa đơn mới
             var hoaDon = new HoaDon
@@ -197,7 +197,7 @@ namespace Nhom4_DeTai7.Controllers
             };
 
             db.HoaDon.Add(hoaDon);
-            db.SaveChanges(); // Lưu hóa đơn vào cơ sở dữ liệu
+            db.SaveChanges(); 
 
             // Lấy các sản phẩm được chọn từ giỏ hàng
             var selectedItemIds = Request.Form.GetValues("dummy");
@@ -219,10 +219,9 @@ namespace Nhom4_DeTai7.Controllers
                         db.CT_HoaDon.Add(chiTietHoaDon);
                     }
                 }
-                db.SaveChanges(); // Lưu chi tiết hóa đơn vào cơ sở dữ liệu
+                db.SaveChanges(); 
             }
-
-            //db.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
+          
 
             return RedirectToAction("thanhcong");
         }

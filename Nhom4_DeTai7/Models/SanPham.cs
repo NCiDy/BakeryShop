@@ -142,7 +142,18 @@ namespace Nhom4_DeTai7.Models
                 throw new InvalidOperationException("Danh sách sản phẩm chưa được tải.");
             }
 
-            danhsachSP_ten = danhsachSP.Where(sp => sp.ten_sp.IndexOf(ten, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+            if (string.IsNullOrWhiteSpace(ten))
+            {
+                throw new ArgumentException("Tên sản phẩm không được để trống.", nameof(ten));
+            }
+
+            // Tách chuỗi tìm kiếm thành các từ
+            var searchTerms = ten.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Tìm các sản phẩm mà tất cả các từ trong chuỗi tìm kiếm xuất hiện trong tên sản phẩm
+            danhsachSP_ten = danhsachSP
+                .Where(sp => searchTerms.All(term => sp.ten_sp.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0))
+                .ToList();
         }
 
         // chi tiết sản phẩm

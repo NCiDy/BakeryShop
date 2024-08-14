@@ -30,11 +30,11 @@ namespace Nhom4_DeTai7.Models
         [StringLength(255)]
         public string TTMH { get; set; }
 
-        // Navigation property
+
         [ForeignKey("ID_ND")]
         public virtual NguoiDung NguoiDung { get; set; }
 
-        // Collection of ChiTietHoaDon
+
         public virtual ICollection<CTHOADON> ChiTietHoaDon { get; set; }
     }
 }

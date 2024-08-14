@@ -15,7 +15,6 @@ namespace Nhom4_DeTai7.Models
 
   
 
-        // Điều này là tùy chọn, nhưng giúp thiết lập mối quan hệ với các bảng khác
         public virtual SanPham SanPham { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
 
